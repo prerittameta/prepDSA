@@ -153,25 +153,6 @@ def binary_search(arr, target):
 #             start = middle+1
 #     return -1
 
-# def gkg_infinte_array_search(arr, target):
-#     start = 0
-#     end = 1
-    
-#     while(target > arr[end]):
-#         newstart = end + 1 
-#         end = end + (end - start + 1)*2 
-#         start  = newstart
-    
-#     print(binary_search(arr,target,start,end))
-    
-
-# arr = [3,5,7,9,10,90,100,140,160,170, 190, 2000, 201214, 2021111]
-
-
-# target  = 100
-
-# gkg_infinte_array_search(arr, target)
-
 def binary_search(arr, target, start, end):
 
     while (start <= end):
@@ -183,6 +164,27 @@ def binary_search(arr, target, start, end):
         else:
             start = middle+1
     return -1
+
+def gkg_infinte_array_search(arr, target):
+    start = 0
+    end = 1
+    
+    while(target > arr[end]):
+        newstart = end + 1 
+        end = end + (end - start + 1)*2 
+        start  = newstart
+    
+    print(binary_search(arr,target,start,end))
+    
+
+# arr = [3,5,7,9,10,90,100,140,160,170, 190, 2000, 201214, 2021111]
+
+
+# target  = 100
+
+# gkg_infinte_array_search(arr, target)
+
+
 
 def binary_search_oa(arr, target, s, e):
     e = len(arr)-1
@@ -326,20 +328,95 @@ def split_array(nums,k):
 # print(split_array(nums,k))
 
 
+def matrix_linear_search(arr, target):
+    #symmetrical matrix r = c
+
+    for i in range(len(arr)):
+        for j in range(len(arr)):
+            if arr[i][j] == target:
+                return [i,j]
+    return [-1,-1]
 
 
 
+def matric_binary_search(m, target):
+    r = 0
+    c = len(m) - 1
+    length = len(m) 
+
+    while(r<length and c>=0):
+        if(m[r][c]== target):
+            return [r,c]
+        if(m[r][c]<target):
+            r+=1
+        else:
+            c-=1
+    return [-1,-1]
+        
+# m = [[10,20,30,40],[15,25,35,45],[28,29,37,49],[33,34,38,50]]
+# target = 39
+# print(matric_binary_search(m,target))
+
+# Search in the row, between the columns provided
+def binary_search_sorted_matrix(m,target, r,cstart,cend):
+    while(cstart <= cend):
+        middle = cstart + (cend - cstart)//2
+        if(m[r][middle]== target):
+            return [r,middle]
+        if(m[r][middle] < target):
+            cstart = middle + 1
+        else:
+            cend = middle -1
+    return [-1,-1]
+
+def sorted_matrix(m, target):
+    r = len(m)
+    c = len(m[0])
+    rstart = 0
+    rend = len(m) -1
+    cmid = c//2
+    if r==1:
+        return binary_search_sorted_matrix(m,target,r=0,cstart=0,cend=c-1)        
+    #run the loop till two rows are remaining
+
+    while(rstart <(rend -1)):
+        rmid = rstart + (rend-rstart)//2
+        if(m[rmid][cmid] == target):
+            return [rmid,cmid]
+        if(m[rmid][cmid] < target):
+            rstart = rmid
+        else:
+            rend = rmid          #now we have two rows
+                                #now checking the target in colums of the rows reduced
+
+    if(m[rstart][cmid] == target):
+        return [rstart,cmid]
+    if(m[rstart + 1][cmid] == target):
+        return [rstart+1, cmid]
+    if(c>=2):
+    #Search in all the 4 halves
+        if (target <= m[rstart][cmid-1]):        #1st half
+            return binary_search_sorted_matrix(m,target, rstart,cstart=0,cend=cmid-1)
+        if (target >= m[rstart][cmid+1] and target<=m[rstart][c-1]): 
+            return binary_search_sorted_matrix(m,target, rstart,cstart=cmid+1,cend=c-1)
+        if (target <= m[rstart+1][cmid-1]): 
+            return binary_search_sorted_matrix(m,target, rstart+1,cstart=0,cend=cmid-1)
+        else:
+            return binary_search_sorted_matrix(m,target, rstart+1,cstart=cmid+1,cend=cmid-1)
+    elif (target >= m[rstart][0]  and  target<= m[rstart][c-1]):
+        return binary_search_sorted_matrix(m,target, rstart,cstart=0,cend=c-1)
+    return [-1,-1]
 
 
 
+m = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+m1=[[1]]
+m2=[[1]]
+target = 2
+print(sorted_matrix(m2,target))
 
 
-
-
-
-
-
-
+            
 
 
 
