@@ -394,7 +394,7 @@ def sorted_matrix(m, target):
     if(m[rstart + 1][cmid] == target):
         return [rstart+1, cmid]
     if(c>=2):
-    #Search in all the 4 halves
+    #Search in all the 4 halves 
         if (target <= m[rstart][cmid-1]):        #1st half
             return binary_search_sorted_matrix(m,target, rstart,cstart=0,cend=cmid-1)
         if (target >= m[rstart][cmid+1] and target<=m[rstart][c-1]): 
